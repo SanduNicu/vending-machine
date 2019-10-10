@@ -1,4 +1,4 @@
-import { withIds } from 'lib/helpers';
+import { withIds, withCodes } from 'lib/helpers';
 
 import bueno from 'assets/imgs/bueno.png';
 import cola from 'assets/imgs/cola.png';
@@ -10,7 +10,7 @@ import pringles from 'assets/imgs/pringles.png';
 // import sprite from 'assets/imgs/sprite';
 // import surprise from 'assets/imgs/surprise';
 
-export const products = withIds([
+export const products = withIds(withCodes([
   {
     name: 'Bueno',
     img: bueno,
@@ -23,4 +23,4 @@ export const products = withIds([
     name: 'Pringles',
     img: pringles,
   },
-]);
+]));
