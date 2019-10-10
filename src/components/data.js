@@ -24,3 +24,19 @@ export const products = withIds(withCodes([
     img: pringles,
   },
 ]));
+
+export const ammounts = withIds([
+  {
+    label: '50bani',
+    value: 0.5,
+  },
+  {
+    label: '1leu',
+    value: 1,
+  },
+  {
+    label: '5lei',
+    value: 5,
+  },
+]);
+

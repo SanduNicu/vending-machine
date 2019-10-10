@@ -1,13 +1,14 @@
 import React from 'react';
-import { withIds } from 'lib/helpers';
+import { ammounts } from 'components/data';
+import { connect } from 'react-redux';
+import { insertAmmountOfMoney } from 'ducks/vending-machine';
 
-const Customer = () => {
-  const money = 100;
-
+const Customer = (props) => {
+  const { customerMoney, insertAmmount } = props;
   return (
     <div>
       <div>
-        Total money: {money} lei.
+        Total money: {customerMoney} lei.
       </div>
       <div>
         <span>
@@ -15,7 +16,14 @@ const Customer = () => {
         </span>
         {
           ammounts.map((ammount) => (
-            <button key={ammount.id} type="button" className="mx-2">{ammount.label}</button>
+            <button
+              key={ammount.id}
+              type="button"
+              className="mx-2"
+              onClick={() => insertAmmount(ammount.value)}
+            >
+              {ammount.label}
+            </button>
           ))
         };
       </div>
@@ -23,19 +31,17 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+const mapStateToProps = (state) => {
+  return {
+    customerMoney: state.vendingMachine.customerMoney,
+  };
+};
 
-const ammounts = withIds([
-  {
-    label: '50bani',
-    value: 0.5,
-  },
-  {
-    label: '1leu',
-    value: 1,
-  },
-  {
-    label: '5lei',
-    value: 5,
-  },
-]);
+const mapDispatchToProps = (dispatch) => { // eslint-disable-line
+  return {
+    insertAmmount: dispatch(insertAmmountOfMoney),
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Customer);

@@ -1,16 +1,18 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import app from 'ducks/app';
+import Immutable from 'seamless-immutable';
+import vendingMachine from 'ducks/vending-machine';
 
 const reducers = combineReducers({
-  app,
+  vendingMachine,
 });
 
-const initialState = {
-  app: {
-    loading: false,
-  }
-};
+const initialState = Immutable({
+  vendingMachine: {
+    customerMoney: 100,
+    vendingMachineMoney: 0,
+  },
+});
 
 const store = createStore(
   reducers,
