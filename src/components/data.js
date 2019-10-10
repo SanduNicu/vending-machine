@@ -1,4 +1,5 @@
-import { withIds } from 'lib/helpers';
+import { shuffle, withCodes, withIds } from 'lib/helpers';
+import { compose } from 'ramda';
 
 import bueno from 'assets/imgs/bueno.png';
 import cola from 'assets/imgs/cola.png';
@@ -10,7 +11,8 @@ import doritos from 'assets/imgs/doritos.png';
 // import sprite from 'assets/imgs/sprite.png';
 // import surprise from 'assets/imgs/surprise.png';
 
-export const products = withIds([
+
+export const products = [
   {
     name: 'Bueno',
     price: 3.5,
@@ -31,7 +33,13 @@ export const products = withIds([
     price: 4.5,
     img: doritos,
   },
-]);
+];
+
+export const duplicatedProducts = compose(
+  withCodes,
+  shuffle,
+  withIds,
+)([...products, ...products, ...products]);
 
 export const ammounts = withIds([
   {
