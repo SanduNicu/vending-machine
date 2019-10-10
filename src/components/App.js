@@ -1,9 +1,9 @@
 import React from 'react';
-import Test from 'components/Test.tsx';
+import VendingMachine from 'components/VendingMachine';
 
 const App = () => {
   return (
-    <Test />
+    <VendingMachine />
   );
 };
 
