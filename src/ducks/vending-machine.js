@@ -24,8 +24,12 @@ const alterBoughtProducts = createAction('vendingMachine/ALTER_BOUGHT_PRODUCTS')
 
 export const insertAmmountThunk = (dispatch, getState) => (ammount) => {
   const { vendingMachine: { customerMoney, vendingMachineMoney } } = getState();
+  if (customerMoney < ammount) {
+    return toast.error('You don\'t have enough cash');
+  }
   dispatch(alterCustomerMoney(customerMoney - ammount));
   dispatch(alterVendingMachineMoney(vendingMachineMoney + ammount));
+  return null;
 };
 
 export const buyProductThunk = (dispatch, getState) => (productCode) => {
@@ -38,7 +42,7 @@ export const buyProductThunk = (dispatch, getState) => (productCode) => {
   }
 
   if (product.price > vendingMachineMoney) {
-    return toast.error('Insufficient credit');
+    return toast.error('Insufficient credit!');
   }
 
   if (product.remaining === 0) {
@@ -48,5 +52,5 @@ export const buyProductThunk = (dispatch, getState) => (productCode) => {
   dispatch(alterVendingMachineMoney(vendingMachineMoney - product.price));
   dispatch(alterProduct({ code: productCode, remaining: product.remaining - 1 }));
   dispatch(alterBoughtProducts([...boughtProducts, product]));
-  return toast.success('Bought!');
+  return toast.success('Product bought!');
 };
