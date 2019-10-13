@@ -43,12 +43,11 @@ const products = [
 const duplicatedProducts = compose(
   withCodes,
   shuffle,
-  withIds,
   flatten,
 )(times(() => products, 3));
 
 export const serializedProducts = duplicatedProducts.reduce(
-  (acc, val) => assoc(val.id, val, acc),
+  (acc, val) => assoc(val.code, val, acc),
   {},
 );
 
@@ -66,4 +65,3 @@ export const ammounts = withIds([
     value: 5,
   },
 ]);
-

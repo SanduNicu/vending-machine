@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Product from 'components/vending-machine/Product';
 import Numpad from 'components/numpad/Numpad';
+import PickupBox from 'components/pickup-box/PickupBox';
 import { buyProductThunk } from 'ducks/vending-machine';
 import { values, sortBy } from 'ramda';
 // import { alterCustomerMoney } from 'ducks/vending-machine';
@@ -16,12 +17,15 @@ const VendingMachine = (props) => {
         <div className="col-9 row">
           {
             vendingProducts.map(product => (
-              <Product key={product.id} info={product} />
+              <Product key={product.code} info={product} />
             ))
           }
         </div>
         <div className="col-3 align-items-center justify-content-center d-flex">
           <Numpad buyProduct={buyProduct} />
+        </div>
+        <div>
+          <PickupBox />
         </div>
       </div>
     </div>

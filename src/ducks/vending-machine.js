@@ -9,7 +9,7 @@ export default function reducer(state = Immutable([]), action = {}) {
     case 'vendingMachine/ALTER_VENDING_MACHINE_MONEY':
       return state.setIn(['vendingMachineMoney'], action.payload);
     case 'vendingMachine/ALTER_PRODUCT':
-      return state.setIn(['products', action.payload.id, 'remaining'], action.payload.remaining);
+      return state.setIn(['products', action.payload.code, 'remaining'], action.payload.remaining);
     default:
       return state;
   }
@@ -25,10 +25,10 @@ export const insertAmmountThunk = (dispatch, getState) => (ammount) => {
   dispatch(alterVendingMachineMoney(vendingMachineMoney + ammount));
 };
 
-export const buyProductThunk = (dispatch, getState) => (productId) => {
+export const buyProductThunk = (dispatch, getState) => (productCode) => {
   const state = getState();
   const { vendingMachineMoney, products } = state.vendingMachine;
-  const product = products[productId];
+  const product = products[productCode];
 
   if (!product) {
     return toast.error('Product not found!');
@@ -43,6 +43,7 @@ export const buyProductThunk = (dispatch, getState) => (productId) => {
   }
 
   dispatch(alterVendingMachineMoney(vendingMachineMoney - product.price));
-  dispatch(alterProduct({ id: productId, remaining: product.remaining - 1 }));
+  dispatch(alterProduct({ code: productCode, remaining: product.remaining - 1 }));
+
   return toast.success('Bought!');
 };
