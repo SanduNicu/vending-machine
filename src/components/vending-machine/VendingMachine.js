@@ -2,19 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { duplicatedProducts } from 'components/data';
 import Product from 'components/vending-machine/Product';
+import Numpad from 'components/numpad/Numpad';
 // import { alterCustomerMoney } from 'ducks/vending-machine';
 
 const VendingMachine = (props) => {
   const { vendingMachineMoney } = props;
   return (
     <div className="p-3">
-      <div>Money: {vendingMachineMoney} lei</div>
+      <div>Credit: {vendingMachineMoney} lei</div>
       <div className="row">
-        {
-          duplicatedProducts.map(product => (
-            <Product key={product.id} info={product} />
-          ))
-        }
+        <div className="col-9 row">
+          {
+            duplicatedProducts.map(product => (
+              <Product key={product.id} info={product} />
+            ))
+          }
+        </div>
+        <div className='col-3'>
+          <Numpad />
+        </div>
       </div>
     </div>
   );
