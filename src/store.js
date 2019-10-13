@@ -1,4 +1,6 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import {
+  createStore, compose, applyMiddleware, combineReducers,
+} from 'redux';
 import thunk from 'redux-thunk';
 import Immutable from 'seamless-immutable';
 import vendingMachine from 'ducks/vending-machine';
@@ -17,10 +19,12 @@ const initialState = Immutable({
   },
 });
 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line
+
 const store = createStore(
   reducers,
   initialState,
-  applyMiddleware(thunk),
+  composeEnhancer(applyMiddleware(thunk)),
 );
 
 export default store;

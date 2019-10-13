@@ -25,7 +25,7 @@ const Customer = (props) => {
               {ammount.label}
             </button>
           ))
-        };
+        }
       </div>
     </div>
   );

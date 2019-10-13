@@ -17,28 +17,35 @@ const products = [
   {
     name: 'Bueno',
     price: 3.5,
-    img: bueno,
+    img: 'bueno',
     remaining: maxAmount,
   },
   {
     name: 'Cola',
     price: 3,
-    img: cola,
+    img: 'cola',
     remaining: maxAmount,
   },
   {
     name: 'Pringles',
     price: 7,
-    img: pringles,
+    img: 'pringles',
     remaining: maxAmount,
   },
   {
     name: 'Doritos',
     price: 4.5,
-    img: doritos,
+    img: 'doritos',
     remaining: maxAmount,
   },
 ];
+
+export const imgsByTag = {
+  bueno,
+  cola,
+  pringles,
+  doritos,
+};
 
 const duplicatedProducts = compose(
   withCodes,
@@ -63,5 +70,9 @@ export const ammounts = withIds([
   {
     label: '5lei',
     value: 5,
+  },
+  {
+    label: '10lei',
+    value: 10,
   },
 ]);

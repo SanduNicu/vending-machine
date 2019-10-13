@@ -10,6 +10,8 @@ export default function reducer(state = Immutable([]), action = {}) {
       return state.setIn(['vendingMachineMoney'], action.payload);
     case 'vendingMachine/ALTER_PRODUCT':
       return state.setIn(['products', action.payload.code, 'remaining'], action.payload.remaining);
+    case 'vendingMachine/ALTER_BOUGHT_PRODUCTS':
+      return state.setIn(['boughtProducts'], action.payload);
     default:
       return state;
   }
@@ -18,6 +20,7 @@ export default function reducer(state = Immutable([]), action = {}) {
 const alterCustomerMoney = createAction('vendingMachine/ALTER_CUSTOMER_MONEY');
 const alterVendingMachineMoney = createAction('vendingMachine/ALTER_VENDING_MACHINE_MONEY');
 const alterProduct = createAction('vendingMachine/ALTER_PRODUCT');
+const alterBoughtProducts = createAction('vendingMachine/ALTER_BOUGHT_PRODUCTS');
 
 export const insertAmmountThunk = (dispatch, getState) => (ammount) => {
   const { vendingMachine: { customerMoney, vendingMachineMoney } } = getState();
@@ -27,7 +30,7 @@ export const insertAmmountThunk = (dispatch, getState) => (ammount) => {
 
 export const buyProductThunk = (dispatch, getState) => (productCode) => {
   const state = getState();
-  const { vendingMachineMoney, products } = state.vendingMachine;
+  const { vendingMachineMoney, products, boughtProducts } = state.vendingMachine;
   const product = products[productCode];
 
   if (!product) {
@@ -44,6 +47,6 @@ export const buyProductThunk = (dispatch, getState) => (productCode) => {
 
   dispatch(alterVendingMachineMoney(vendingMachineMoney - product.price));
   dispatch(alterProduct({ code: productCode, remaining: product.remaining - 1 }));
-
+  dispatch(alterBoughtProducts([...boughtProducts, product]));
   return toast.success('Bought!');
 };

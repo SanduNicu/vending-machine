@@ -11,7 +11,7 @@ const VendingMachine = (props) => {
   const { vendingMachineMoney, products, buyProduct } = props;
   const vendingProducts = sortBy(product => product.code, values(products));
   return (
-    <div className="p-3">
+    <div className="p-3 mt-5">
       <div>Credit: {vendingMachineMoney} lei</div>
       <div className="row">
         <div className="col-9 row">

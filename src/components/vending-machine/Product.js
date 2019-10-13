@@ -1,12 +1,13 @@
 import React from 'react';
+import { imgsByTag } from 'components/data';
 
 const Product = ({ info }) => {
   const {
     name, img, price, code,
   } = info;
   return (
-    <div className="product col-3 py-3 text-center">
-      <img src={img} alt={name} />
+    <div className="col-3 py-3 text-center">
+      <img src={imgsByTag[img]} className="product-img" alt={name} />
       <div>
         {name}: {code}
       </div>
