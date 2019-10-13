@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { range } from 'ramda';
 
-const Numpad = ({ buyProduct = () => {} }) => {
+const Numpad = ({ buyProduct }) => {
   const [inputValue, setInputValue] = useState('');
   const digits = range(0, 10).reverse();
+  const handleBuy = () => {
+    buyProduct(inputValue);
+    setInputValue('');
+  };
+
   return (
-    <>
+    <div>
       <input
         type="text"
         readOnly
@@ -28,7 +33,7 @@ const Numpad = ({ buyProduct = () => {} }) => {
         <button
           type="button"
           className="col-4"
-          onClick={() => buyProduct(inputValue)}
+          onClick={() => handleBuy(inputValue)}
         >
           Buy
         </button>
@@ -40,7 +45,7 @@ const Numpad = ({ buyProduct = () => {} }) => {
           Clear
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

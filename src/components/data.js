@@ -1,5 +1,5 @@
 import { shuffle, withCodes, withIds } from 'lib/helpers';
-import { compose } from 'ramda';
+import { compose, times, flatten, assoc } from 'ramda';
 
 import bueno from 'assets/imgs/bueno.png';
 import cola from 'assets/imgs/cola.png';
@@ -11,35 +11,46 @@ import doritos from 'assets/imgs/doritos.png';
 // import sprite from 'assets/imgs/sprite.png';
 // import surprise from 'assets/imgs/surprise.png';
 
+const maxAmount = 3;
 
-export const products = [
+const products = [
   {
     name: 'Bueno',
     price: 3.5,
     img: bueno,
+    remaining: maxAmount,
   },
   {
     name: 'Cola',
     price: 3,
     img: cola,
+    remaining: maxAmount,
   },
   {
     name: 'Pringles',
     price: 7,
     img: pringles,
+    remaining: maxAmount,
   },
   {
     name: 'Doritos',
     price: 4.5,
     img: doritos,
+    remaining: maxAmount,
   },
 ];
 
-export const duplicatedProducts = compose(
+const duplicatedProducts = compose(
   withCodes,
   shuffle,
   withIds,
-)([...products, ...products, ...products]);
+  flatten,
+)(times(() => products, 3));
+
+export const serializedProducts = duplicatedProducts.reduce(
+  (acc, val) => assoc(val.id, val, acc),
+  {},
+);
 
 export const ammounts = withIds([
   {

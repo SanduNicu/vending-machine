@@ -1,7 +1,7 @@
 import React from 'react';
 import { ammounts } from 'components/data';
 import { connect } from 'react-redux';
-import { insertAmmountOfMoney } from 'ducks/vending-machine';
+import { insertAmmountThunk } from 'ducks/vending-machine';
 
 const Customer = (props) => {
   const { customerMoney, insertAmmount } = props;
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => { // eslint-disable-line
   return {
-    insertAmmount: dispatch(insertAmmountOfMoney),
+    insertAmmount: dispatch(insertAmmountThunk),
   };
 };
 
