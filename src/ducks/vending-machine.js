@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { createAction } from 'redux-actions';
+import { toast } from 'react-toastify';
 
 export default function reducer(state = Immutable([]), action = {}) {
   switch (action.type) {
@@ -30,18 +31,18 @@ export const buyProductThunk = (dispatch, getState) => (productId) => {
   const product = products[productId];
 
   if (!product) {
-    return alert('Product not found!');
+    return toast.error('Product not found!');
   }
 
   if (product.price > vendingMachineMoney) {
-    return alert('Insufficient credit');
+    return toast.error('Insufficient credit');
   }
 
   if (product.remaining === 0) {
-    return alert('Out of stock!');
+    return toast.error('Out of stock!');
   }
 
   dispatch(alterVendingMachineMoney(vendingMachineMoney - product.price));
   dispatch(alterProduct({ id: productId, remaining: product.remaining - 1 }));
-  return alert('Bought!');
+  return toast.success('Bought!');
 };
